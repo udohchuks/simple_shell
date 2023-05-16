@@ -9,7 +9,7 @@ char *_getline()
 	int i = 0;
 	size_t nread;
 	char c = 0;
-	char *buffer = malloc(sizeof(char) * 1);
+	char *buffer = malloc(sizeof(char) * 1024);
 
 	if (buffer == NULL)
 	{
@@ -45,6 +45,7 @@ char *_getline()
 				return (NULL);
 			}
 		}
+		i++;
 	}
 	buffer[i] = '\0';
 	return (buffer);

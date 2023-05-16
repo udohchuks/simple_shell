@@ -1,9 +1,12 @@
+#include "shell.h"
+
 /**
  * my_strtok - strtok implementation
  * @str: string
  * @delim: delimiter
  * Return: token
  */
+
 char *my_strtok(char *str, char const *delim)
 {
 	static char *ptr;

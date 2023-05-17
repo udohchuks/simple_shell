@@ -6,7 +6,7 @@
 int main(void)
 {
 	char *cmd;
-	size_t nread, n = 0;
+	char *full_path;
 
 	do {
 		if (isatty(STDIN_FILENO))
@@ -20,10 +20,14 @@ int main(void)
 		}
 		if (cmd[0] == '\0' || (_strcmp(cmd, "\n") == 0))
 		{
-			free(cmd);
 			continue;
 		}
-		printf("%s", cmd);
+		/* Testing*/
+		full_path = which(cmd);
+		dprintf(1, "%s\n", full_path);
+		free(full_path);
+		/* End of test*/
+
 		free(cmd);
 	} while (1);
 	return (0);

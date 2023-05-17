@@ -43,3 +43,44 @@ void *_realloc(void *ptr, size_t size)
 	free(ptr);
 	return (new_ptr);
 }
+/**
+ * _strdup - strdup()
+ * @s: string
+ * Return: duplicate of s
+ */
+char *_strdup(char *s)
+{
+	size_t len = strlen(s) + 1;
+	char *new_str = malloc(len);
+
+	if (new_str == NULL)
+	{
+		return (NULL);
+	}
+	_memcpy(new_str, s, len);
+	return (new_str);
+}
+/**
+ * _strcat - strcat()
+ * @dest: destination string
+ * @src: source string
+ * Return: concatenated string
+ */
+char *_strcat(char *dest, const char *src)
+{
+	char *p = dest;
+	int i = 0, j = 0;
+
+	while (dest[i] != '\0')
+	{
+		i++;
+	}
+	while (src[j] != '\0')
+	{
+		p[i] = src[j];
+		i++;
+		j++;
+	}
+	p[i] = '\0';
+	return (p);
+}

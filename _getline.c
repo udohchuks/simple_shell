@@ -47,6 +47,6 @@ char *_getline()
 		}
 		i++;
 	}
-	buffer[i] = '\0';
+	buffer[i - 1] = '\0';
 	return (buffer);
 }

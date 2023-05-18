@@ -1,4 +1,5 @@
 #include "shell.h"
+#include <sys/wait.h>
 
 /**
  * main - Entry point
@@ -6,7 +7,7 @@
  */
 int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 {
-	char *cmd;
+	char *cmd, *cmd1;
 	char *argv[MAX_ARGS];
 	char *argv_alias[MAX_ARGS] __attribute__ ((unused));
 	int  __attribute__ ((unused)) alias;
@@ -29,15 +30,12 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 			continue;
 		}
 
-		/* Testing*/
-		/** full_path = which(cmd);
-		dprintf(1, "%s\n", full_path);
-		free(full_path);
-		*/
-		/* End of test*/
 		tokenize(cmd, argv);
+		/**Test again here **/
+		_exec(argv);
+		/** end test here */
 		num_arg = num_args(argv);
-		
+			
 		alias = alias_command(argv, num_arg);
 		free(cmd);
 	} while (1);

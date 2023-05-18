@@ -7,7 +7,8 @@
  */
 int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 {
-	char *cmd, *cmd1;
+	char *cmd;
+	char * __attribute__ ((unused)) cmd1;
 	char *argv[MAX_ARGS];
 	char *argv_alias[MAX_ARGS] __attribute__ ((unused));
 	int  __attribute__ ((unused)) alias;

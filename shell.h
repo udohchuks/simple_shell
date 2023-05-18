@@ -35,7 +35,7 @@ void remove_trailing_spaces(char *str);
 void tokenize(char *command, char *argv[MAX_ARGS]);
 int num_args(char *argv[]);
 int has_equal(char *str);
-void _exec(char **_argum);
+void _exec(char **_argum, char *av);
 
 /**structures*/
 typedef struct  alias_s

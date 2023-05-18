@@ -31,7 +31,7 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 		}
 
 		tokenize(cmd, argv);
-		_exec(argv);
+		_exec(argv, av[0]);
 		num_arg = num_args(argv);
 			
 		alias = alias_command(argv, num_arg);

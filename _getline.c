@@ -7,9 +7,9 @@
 char *_getline()
 {
 	int i = 0;
-	size_t nread;
+	ssize_t nread;
 	char c = 0;
-	char *buffer = malloc(sizeof(char) * 1024);
+	char *buffer = malloc(sizeof(char) * BUFFER_SIZE);
 
 	if (buffer == NULL)
 	{
@@ -48,5 +48,19 @@ char *_getline()
 		i++;
 	}
 	buffer[i - 1] = '\0';
+	hash_handler(buffer);
 	return (buffer);
+}
+
+void hash_handler(char *buff)
+{
+	int i = 0;
+	while (buff[i] != '\0')
+	{
+		if (buff[i] == '#')
+		{
+			buff[i] = '\0';
+		}
+		i++;
+	}
 }

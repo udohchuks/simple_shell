@@ -9,11 +9,11 @@
 
 char *_strtok(char *str, char const *delim)
 {
-	static char *ptr;
+	static char *ptr = NULL;
 	int size = 0;
 	char *token;
-	int i = 0, j;
-
+	int i = 0;
+	
 	if (str != NULL)
 	{
 		ptr = str;

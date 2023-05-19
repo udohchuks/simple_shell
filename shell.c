@@ -1,5 +1,4 @@
 #include "shell.h"
-#include <sys/wait.h>
 
 /**
  * main - Entry point
@@ -12,7 +11,8 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 	char *argv[MAX_ARGS];
 	char * __attribute__ ((unused)) full_path;
 	int __attribute__ ((unused)) num_arg;
-
+	signal(SIGINT, handle_sigint);
+	signal(SIGSEGV, handle_segfault);
 	do {
 		if (isatty(STDIN_FILENO))
 		{
@@ -31,6 +31,10 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 
 		tokenize(cmd, argv);
 		num_arg = num_args(argv);
+		if (strcmp(argv[0], "exit") == 0)
+		{
+			_1exit(argv[1]);
+		}
 		if (_strcmp(argv[0], "printenv") == 0)
 		{
 			_env();
@@ -45,7 +49,7 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 		{
 			_setenv(argv[1], argv[2]);
 			continue;
-		}	
+		}
 		if (alias_command(argv, num_arg) )
 		{
 			continue;

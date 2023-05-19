@@ -10,6 +10,7 @@
 #include <string.h>
 #include <stddef.h>
 #include <sys/wait.h>
+#include <signal.h>
 
 /** Macros **/
 #define BUFFER_SIZE 1024
@@ -36,6 +37,8 @@ void remove_trailing_spaces(char *str);
 void tokenize(char *command, char *argv[MAX_ARGS]);
 int num_args(char *argv[]);
 void _exec(char **_argum, char *av);
+void _1exit(char *status __attribute__((unused)));
+int _atoi(const char *str);
 /**structures*/
 typedef struct  alias_s
 {
@@ -81,5 +84,6 @@ int _unsetenv(const char *name);
 int _setenv(const char *name, const char *value);
 void add_env_var(struct Node **head, const char *name, const char *value);
 void update_environ(struct Node *head);
+void handle_segfault(int signo __attribute__((unused)));
+void handle_sigint(int signo __attribute__((unused)));
 #endif
-

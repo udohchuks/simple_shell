@@ -34,5 +34,30 @@ int num_args(char *argv[])
     }
     return (i);
 }
+int _atoi(const char *str)
+{
+  int i, n = 0;
+  int sign = 1;
 
+  for (i = 0; str[i] != '\0'; i++)
+  {
+    if (str[i] == '-') {
+      sign = -1;
+    } else if (str[i] >= '0' && str[i] <= '9') {
+      n = n * 10 + (str[i] - '0');
+    } else {
+      break;
+    }
+  }
 
+  return (n * sign);
+}
+void _1exit(char *status __attribute__((unused)))
+{
+    int i = _atoi(status)
+    if (status)
+    {
+    exit(i);
+    }
+  exit(99);
+}

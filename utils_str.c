@@ -50,7 +50,7 @@ int _strncmp(const char *s1, const char *s2, size_t n)
  * @str: string
  * Return: length of string
  */
-int _strlen(char *str)
+int _strlen(const char *str)
 {
 	int i = 0;
 

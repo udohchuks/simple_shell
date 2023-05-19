@@ -10,8 +10,6 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 	char *cmd;
 	char * __attribute__ ((unused)) cmd1;
 	char *argv[MAX_ARGS];
-	char *argv_alias[MAX_ARGS] __attribute__ ((unused));
-	int  __attribute__ ((unused)) alias;
 	char * __attribute__ ((unused)) full_path;
 	int __attribute__ ((unused)) num_arg;
 
@@ -32,10 +30,31 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 		}
 
 		tokenize(cmd, argv);
-		_exec(argv, av[0]);
 		num_arg = num_args(argv);
+		if (_strcmp(argv[0], "printenv") == 0)
+		{
+			_env();
+			continue;
+		}
+		if (_strcmp(argv[0], "unsetenv") == 0)
+		{
+			_unsetenv(argv[1]);
+			continue;
+		}
+		if (_strcmp(argv[0], "setenv") == 0)
+		{
+			_setenv(argv[1], argv[2]);
+			continue;
+		}	
+		if (alias_command(argv, num_arg) )
+		{
+			continue;
+		}
+		else
+		{
+			_exec(argv, av[0]);
 			
-		alias = alias_command(argv, num_arg);
+		}
 		free(cmd);
 	} while (1);
 	return (0);

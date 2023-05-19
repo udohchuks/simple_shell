@@ -34,16 +34,5 @@ int num_args(char *argv[])
     }
     return (i);
 }
-int has_equal(char *str)
-{
-    int i = 0;
-    while (str[i] != '\0')
-    {
-        if (str[i] == '=')
-        {
-            return (1);
-        }
-        i++;
-    }
-    return (0);
-}
+
+

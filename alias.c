@@ -3,8 +3,8 @@
 int alias_command(char *argv[MAX_ARGS], int num_arg __attribute__((unused)))
 {
 	int i = 0;
-	static int num_aliases = 4;
-	alias_t aliases[100] =
+	int num_aliases = 4;
+	alias_t aliases[MAX_NUM_Aliases] =
 	{
 		{"l", "ls -CF"},
 		{"la", "ls -A"},
@@ -12,9 +12,9 @@ int alias_command(char *argv[MAX_ARGS], int num_arg __attribute__((unused)))
 		{"ls", "ls --color=auto"},
 		{NULL, NULL}
 	};
-	if (_strcmp(argv[0], "alias") != 0)
+	if (_strcmp(argv[0], "alias") != 0 && num_arg > 2)
 	{
-		return (1);
+		return (0);
 	}
 	if (_strcmp(argv[0], "alias") == 0 && num_arg == 1)
 	{
@@ -28,14 +28,11 @@ int alias_command(char *argv[MAX_ARGS], int num_arg __attribute__((unused)))
 			write(1, "\n", 1);
 			i++;
 		}
+		return (1);
 	}
 	if (argv[1] != NULL)
 	{
-		if (has_equal(argv[1]) && _strcmp(argv[0], "alias") == 0)
-		{
-
-		}
-		else if (has_equal(argv[1]) == 0 && _strcmp(argv[0], "alias") == 0)
+		if (_strcmp(argv[0], "alias") == 0)
 		{
 			int i;
 
@@ -49,7 +46,7 @@ int alias_command(char *argv[MAX_ARGS], int num_arg __attribute__((unused)))
 					write(1, aliases[i].alias_cmd, _strlen(aliases[i].alias_cmd));
 					write(1,"'", 1);
 					write(1, "\n", 1);
-					return (0);
+					return (1);
 				}
 			}
 		}
@@ -58,5 +55,5 @@ int alias_command(char *argv[MAX_ARGS], int num_arg __attribute__((unused)))
 			return (0);
 		}
 	}
-		return (1);
+		return (0);
 }

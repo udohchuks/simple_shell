@@ -22,7 +22,10 @@ void _exec(char **_argum, char *av)
 			idcheck = fork();
 			if (idcheck == 0)
 			{
-				execve(_argum[0], _argum, envp);
+				if (execve(_argum[0], _argum, envp) == -1)
+			{
+				perror("execve failed");
+			};
 			}
 		}
 		else
@@ -40,7 +43,10 @@ void _exec(char **_argum, char *av)
 		idcheck = fork();
 		if (idcheck == 0)
 		{
-			execve(cmd1, _argum, envp);
+			if (execve(cmd1, _argum, envp) == -1)
+			{
+				perror("execve failed");
+			};
 		}
 	}
 	wait(NULL);

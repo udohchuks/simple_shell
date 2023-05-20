@@ -16,7 +16,7 @@ char *which(char *command)
 	{
 		return (NULL);
 	}
-	path_copy = strdup(path);
+	path_copy = _strdup(path);
 	dir = _strtok(path_copy, ":");
 
 	while (dir != NULL)
@@ -30,7 +30,7 @@ char *which(char *command)
 		if (access(full_path, X_OK) == 0)
 		{
 			free(path_copy);
-			return (strdup(full_path));
+			return (_strdup(full_path));
 		}
 		dir = _strtok(NULL, ":");
 	}

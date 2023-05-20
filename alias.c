@@ -38,7 +38,7 @@ int alias_command(char *argv[MAX_ARGS], int num_arg __attribute__((unused)))
 
 			for (i = 0; i < num_aliases; i++)
 			{
-				if (strcmp(argv[1], aliases[i].name) == 0)
+				if (_strcmp(argv[1], aliases[i].name) == 0)
 				{
 					write(1, "alias " ,7);
 					write(1,aliases[i].name,_strlen(aliases[i].name));

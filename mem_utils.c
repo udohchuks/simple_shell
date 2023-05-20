@@ -50,7 +50,7 @@ void *_realloc(void *ptr, size_t size)
  */
 char *_strdup(char *s)
 {
-	size_t len = strlen(s) + 1;
+	size_t len = _strlen(s) + 1;
 	char *new_str = malloc(len);
 
 	if (new_str == NULL)

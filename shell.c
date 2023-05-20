@@ -31,7 +31,7 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 
 		tokenize(cmd, argv);
 		num_arg = num_args(argv);
-		if (strcmp(argv[0], "exit") == 0)
+		if (_strcmp(argv[0], "exit") == 0)
 		{
 			_1exit(argv[1]);
 		}

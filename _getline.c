@@ -11,7 +11,6 @@ char *_getline(void)
     ssize_t nread;
     char c = 0;
     char *buffer = malloc(sizeof(char) * BUFFER_SIZE);
-
     if (buffer == NULL)
     {
         free(buffer);

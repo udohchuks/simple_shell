@@ -36,5 +36,6 @@ void _exec(char **_argum, char *av)
             if (execve(cmd1, _argum, envp) == -1)
                 perror("execve failed");
     }
+    free(cmd1);
     wait(NULL);
 }

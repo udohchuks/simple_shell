@@ -58,6 +58,7 @@ char *_strdup(char *s)
 		return (NULL);
 	}
 	_memcpy(new_str, s, len);
+	
 	return (new_str);
 }
 /**

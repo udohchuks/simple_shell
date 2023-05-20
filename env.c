@@ -54,7 +54,6 @@ int _setenv(const char *name, const char *value)
 
   /* Setenv */
   add_env_var(&head, name, value);
-
   /* update the environ variable */
   update_environ(head);
 
@@ -101,7 +100,7 @@ void add_env_var(struct Node **head, const char *name, const char *value)
   {
     if (_strncmp(current->str, name, name_len) == 0 && current->str[name_len] == '=') {
       /* found an existing environment variable with the same name */
-      free(current->str);
+      /* free(current->str); */
       current->str = new_env_var;
       return;
     }

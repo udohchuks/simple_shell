@@ -35,14 +35,14 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 		{
 			_1exit(argv[1]);
 		}
-		if (_strcmp(argv[0], "printenv") == 0)
+		if (_strcmp(argv[0], "cd") == 0)
 		{
-			_env();
+			cd(argv[1]);
 			continue;
 		}
-		if (_strcmp(argv[0], "unsetenv") == 0)
+		if (_strcmp(argv[0], "env") == 0)
 		{
-			_unsetenv(argv[1]);
+			_env();
 			continue;
 		}
 		if (_strcmp(argv[0], "setenv") == 0)

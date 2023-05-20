@@ -78,9 +78,13 @@ int _atoi(const char *str)
 */
 void _1exit(char *status __attribute__((unused)))
 {
-    int i = _atoi(status);
+    int i;
 
     if (status)
+    {
+	    i  = _atoi(status);
         exit(i);
+    }	
+   
     exit(99);
 }

@@ -103,5 +103,5 @@ void add_env_var(struct Node **head, const char *name, const char *value);
 void update_environ(struct Node *head);
 void handle_segfault(int signo __attribute__((unused)));
 void handle_sigint(int signo __attribute__((unused)));
-
+void alias_name(alias_t alias);
 #endif /* SHELL_H */

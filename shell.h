@@ -32,14 +32,14 @@ int _strncmp(const char *str1, const char *str2, size_t len);
 int _strcpy(char *dest, char *src);
 char *_strcat(char *dest, const char *src);
 char *_strdup(char *s);
-void remove_trailing_spaces(char *str);
+void remove_trailing_and_leading_spaces(char *str);
 void tokenize(char *command, char *argv[MAX_ARGS]);
 int num_args(char *argv[]);
 void _exec(char **_argum, char *av);
 void _1exit(char *status __attribute__((unused)));
 int _atoi(const char *str);
 int cd(char *path);
-
+int process_command(char **argv);
 /**
 * struct alias_s - alias structure
 * @name: name of alias
@@ -96,6 +96,7 @@ static void add_node(struct Node **head, struct Node *node)
 void print_list(struct Node *head);
 void free_list(struct Node *head);
 int _env(void);
+void _env2(void); 
 int _unsetenv(const char *name);
 int _setenv(const char *name, const char *value);
 void add_env_var(struct Node **head, const char *name, const char *value);

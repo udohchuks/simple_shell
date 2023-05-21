@@ -16,6 +16,7 @@ void free_list(struct Node *head)
   while (head != NULL) {
     temp = head;
     head = head->next;
+    /*free(temp->str)*/;
     free(temp);
   }
 }
@@ -37,6 +38,18 @@ int _env()
   /* free up memory allocated for each node in the linked list */
   free_list(head);
   return 0;
+}
+
+void _env2(void) 
+{
+    char **env;
+    for (env = environ; *env != NULL; env++) {
+        size_t len = 0;
+        while ((*env)[len] != '\0')
+            len++;
+        write(STDOUT_FILENO, *env, len);
+        write(STDOUT_FILENO, "\n", 1);
+    }
 }
 
 /*Setenv */
@@ -100,7 +113,7 @@ void add_env_var(struct Node **head, const char *name, const char *value)
   {
     if (_strncmp(current->str, name, name_len) == 0 && current->str[name_len] == '=') {
       /* found an existing environment variable with the same name */
-      /* free(current->str); */
+      free(current->str);
       current->str = new_env_var;
       return;
     }
@@ -136,5 +149,6 @@ void update_environ(struct Node *head)
   }
   new_environ[count] = NULL;
   /* update the environ variable */
+  /*free(environ);*/
   environ = new_environ;
 }

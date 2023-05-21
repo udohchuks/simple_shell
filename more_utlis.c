@@ -4,17 +4,36 @@
 * remove_trailing_spaces - remove trailing spaces from a string
 * @str: string to remove trailing spaces from
 */
-void remove_trailing_spaces(char *str)
+void remove_trailing_and_leading_spaces(char *str)
 {
     size_t len = _strlen(str);
+    size_t start = 0;
 
+    /* Remove trailing spaces */
     if (len > 0)
     {
         while (len > 0 && str[len - 1] == ' ')
             len--;
         str[len] = '\0';
     }
+
+    /* Find the starting position after removing trailing spaces */
+    while (str[start] == ' ')
+        start++;
+
+    /* Shift the string to remove leading spaces */ 
+    if (start > 0)
+    {
+        size_t i = 0;
+        while (str[start + i] != '\0')
+        {
+            str[i] = str[start + i];
+            i++;
+        }
+        str[i] = '\0';
+    }
 }
+
 
 /**
 * tokenize - tokenize a string into an array of tokens

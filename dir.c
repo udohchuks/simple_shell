@@ -8,6 +8,7 @@
 */
 int cd(char *path)
 {
+    static int old = 0;
     char *home = _getenv("HOME");
     char *oldpwd = _getenv("PWD");
     char *newpwd;
@@ -15,7 +16,15 @@ int cd(char *path)
     if (path == NULL || _strcmp(path, "~") == 0)
         newpwd = home;
     else if (_strcmp(path, "-") == 0)
-        newpwd = _getenv("OLDPWD");
+    {
+        if (old == 0)
+        {
+            write(2, "cd: OLDPWD not set\n", 20);
+            return (0);
+        }
+        else
+           newpwd = _getenv("OLDPWD");
+    }
     else
         newpwd = path;
 
@@ -25,6 +34,7 @@ int cd(char *path)
         return (1);
     }
 
+    old = 1;
     _setenv("OLDPWD", oldpwd);
     _setenv("PWD", newpwd);
     return (0);

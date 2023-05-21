@@ -14,11 +14,14 @@
 #define BUFFER_SIZE 1024
 #define MAX_ARGS 1024
 #define MAX_NUM_Aliases 100
+#define UNUSED  __attribute__((unused))
 
-extern char **environ;
+static char *cmd __attribute__((unused));
+extern char **environ UNUSED;
 
 /* Function Prototypes */
 char *_getline(void);
+char *read_command(void);
 void hash_handler(char *buff);
 int _strcmp(const char *str1, const char *str2);
 int _strlen(const char *str);
@@ -47,8 +50,8 @@ int process_command(char **argv);
 */
 typedef struct alias_s
 {
-    char *name;
-    char *alias_cmd;
+	char *name;
+	char *alias_cmd;
 } alias_t;
 
 int alias_command(char *argv[MAX_ARGS], int num_arg);
@@ -60,43 +63,51 @@ int alias_command(char *argv[MAX_ARGS], int num_arg);
 */
 struct Node
 {
-    char *str;
-    struct Node *next;
+	char *str;
+	struct Node *next;
 };
 
-static struct Node *new_node(char *str) __attribute__((unused));
+static struct Node *new_node(char *str) UNUSED;
+/**
+ * new_node - Creates a new node for a linked list
+ * @str: String value to be stored in the new node
+ * Return: Pointer to the newly created node
+ */
 static struct Node *new_node(char *str)
 {
-    struct Node *node = malloc(sizeof(struct Node));
+	struct Node *node = malloc(sizeof(struct Node));
 
-    node->str = str;
-    node->next = NULL;
-    return (node);
+	if (node == NULL)
+		return (NULL);
+
+	node->str = str;
+	node->next = NULL;
+	return (node);
 }
 
-static void add_node(struct Node **head, struct Node *node) __attribute__((unused));
+static void add_node(struct Node **head, struct Node *node) UNUSED;
+/**
+ * add_node - Adds a node to the end of a linked list
+ * @head: Pointer to the head of the linked list
+ * @node: Node to be added to the linked list
+ */
 static void add_node(struct Node **head, struct Node *node)
 {
-    if (*head == NULL)
-        {
-            *head = node;
-        }
-    else
-        {
-            struct Node *current = *head;
+	if (*head == NULL)
+		*head = node;
+	else
+	{
+		struct Node *current = *head;
 
-            while (current->next != NULL)
-                {
-                    current = current->next;
-                }
-            current->next = node;
-        }
+		while (current->next != NULL)
+			current = current->next;
+		current->next = node;
+	}
 }
 
 void print_list(struct Node *head);
 void free_list(struct Node *head);
 int _env(void);
-void _env2(void); 
 int _unsetenv(const char *name);
 int _setenv(const char *name, const char *value);
 void add_env_var(struct Node **head, const char *name, const char *value);

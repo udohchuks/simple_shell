@@ -20,7 +20,7 @@ int process_command(char **argv)
 	}
 	if (_strcmp(argv[0], "env") == 0)
 	{
-		_env2();
+		_env();
 		return (0);
 	}
 	if (_strcmp(argv[0], "setenv") == 0)

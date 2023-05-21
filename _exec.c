@@ -19,21 +19,25 @@ void _exec(char **_argum, char *av)
 		{
 			idcheck = fork();
 			if (idcheck == 0)
-				if (execve(_argum[0], _argum, envp) == -1)
-					perror("execve failed");
+				execve(_argum[0], _argum, envp);
 		}
 		else
+		{
 			perror(err);
+			return;
+		}
 	}
 	else
 	{
 		cmd1 = which(_argum[0]);
 		if (cmd1 == NULL)
+		{
 			perror(err);
+			return;
+		}
 		idcheck = fork();
 		if (idcheck == 0)
-			if (execve(cmd1, _argum, envp) == -1)
-				perror("execve failed");
+			execve(cmd1, _argum, envp);
 	}
 	free(cmd1);
 	wait(NULL);

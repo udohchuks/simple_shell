@@ -13,6 +13,7 @@ int cd(char *path)
 	char *oldpwd = _getenv("PWD");
 	char *newpwd;
 
+	write(1, "1", 1);
 	if (path == NULL || _strcmp(path, "~") == 0)
 		newpwd = home;
 	else if (_strcmp(path, "-") == 0)
@@ -34,7 +35,7 @@ int cd(char *path)
 	}
 	old = 1;
 	_setenv("OLDPWD", oldpwd);
-	_setenv("PWD", newpwd);
+	_setenv("PwD", newpwd);
 	return (0);
 }
 

@@ -105,5 +105,5 @@ void _1exit(char *status __attribute__((unused)))
 		i  = _atoi(status);
 		exit(i);
 	}
-	exit(99);
+	exit(0);
 }

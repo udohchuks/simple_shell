@@ -43,6 +43,5 @@ int process_command(char **argv)
 	{
 		return (0);
 	}
-
 	return (1);
 }

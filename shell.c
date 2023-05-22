@@ -25,7 +25,8 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 			exit(EXIT_SUCCESS);
 		if (cmd[0] == '\0' || (_strcmp(cmd, "\n") == 0))
 			continue;
-
+		
+		remwspaces(cmd);
 		tokenize(cmd, argv);
 
 		if (_strcmp(argv[0], "exit") == 0)
@@ -119,7 +120,6 @@ char *read_command(void)
 {
 	char *cmd1 = _getline();
 
-	remwspaces(cmd1);
 	signal(SIGINT, handle_sigint);
 	return (cmd1);
 }

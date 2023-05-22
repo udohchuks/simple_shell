@@ -73,6 +73,7 @@ void remwspaces(char *s)
 {
 	int length = _strlen(s);
 	int i = 0, j = length - 1, k;
+	int l, count, m;
 
 	if (s == NULL)
 		return;
@@ -91,6 +92,22 @@ void remwspaces(char *s)
 		s[k++] = s[i++];
 	}
 	s[k] = '\0';
+	l = 0;
+	count = 0;
+	for (m = 0; m <= j; m++)
+	{
+		if (s[m] != ' ')
+		{
+			s[l++] = s[m];
+			count = 0;
+		}
+		else if (count == 0)
+		{
+			s[l++] = s[m];
+			count++;
+		}
+	}
+	s[l] = '\0';
 }
 
 /**

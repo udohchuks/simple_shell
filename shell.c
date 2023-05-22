@@ -48,6 +48,51 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 
 	return (0);
 }
+
+/**
+ * wspace - check character space or tab
+ * @s: character to be checked
+ *
+ * Return: 1 if successful or 0 if not.
+ */
+
+int wspace(char s)
+{
+	if (s == ' ' || s == '\t')
+		return (1);
+
+	return (0);
+}
+
+/**
+ * remwspaces - remove white spaces
+ * @s: string to be checked
+ */
+
+void remwspaces(char *s)
+{
+	int length = _strlen(s);
+	int i = 0, j = length - 1, k;
+
+	if (s == NULL)
+		return;
+
+	while (i < length && wspace(s[i]))
+	{
+		i++;
+	}
+	while (j >= i && wspace(s[j]))
+	{
+		j--;
+	}
+	k = 0;
+	while (i <= j)
+	{
+		s[k++] = s[i++];
+	}
+	s[k] = '\0';
+}
+
 /**
  * read_command - Read user input from stdin.
  *
@@ -57,6 +102,7 @@ char *read_command(void)
 {
 	char *cmd1 = _getline();
 
+	remwspaces(cmd1);
 	signal(SIGINT, handle_sigint);
 	return (cmd1);
 }

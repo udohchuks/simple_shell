@@ -115,4 +115,6 @@ void update_environ(struct Node *head);
 void handle_segfault(int signo __attribute__((unused)));
 void handle_sigint(int signo __attribute__((unused)));
 void alias_name(alias_t alias);
+void remwspaces(char *s);
+int wspace(char s);
 #endif /* SHELL_H */

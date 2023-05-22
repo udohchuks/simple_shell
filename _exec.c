@@ -38,7 +38,7 @@ void _exec(char **_argum, char *av)
 		idcheck = fork();
 		if (idcheck == 0)
 			execve(cmd1, _argum, envp);
+		free(cmd1);
 	}
-	free(cmd1);
 	wait(NULL);
 }

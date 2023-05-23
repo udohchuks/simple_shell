@@ -28,7 +28,8 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 
 		remwspaces(cmd);
 		tokenize(cmd, argv);
-
+		if (cmd[0] == '\0')
+			continue;
 		if (_strcmp(argv[0], "exit") == 0)
 		{
 			free(cmd);

@@ -100,10 +100,12 @@ void _1exit(char *status __attribute__((unused)))
 {
 	int i;
 
-	if (status)
+	if (status != NULL)
 	{
 		i  = _atoi(status);
+		free(cmd);
 		exit(i);
 	}
+	free(cmd);
 	exit(0);
 }

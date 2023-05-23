@@ -32,7 +32,6 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 			continue;
 		if (_strcmp(argv[0], "exit") == 0)
 		{
-			free(cmd);
 			_1exit(argv[1]);
 		}
 

@@ -124,7 +124,6 @@ char *read_command(void)
 	signal(SIGINT, handle_sigint);
 	return (cmd1);
 }
-
 /**
  * handle_sigint - Signal handler for SIGINT (Ctrl+C).
  * @signo: The signal number.

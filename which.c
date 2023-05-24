@@ -37,3 +37,15 @@ char *which(char *command)
 	free(path_copy);
 	return (NULL);
 }
+
+/**
+ * print_all_aliases - prints aliases
+ * @aliases: aliases
+*/
+void print_all_aliases(alias_t *aliases)
+{
+	alias_t *alias;
+
+	for (alias = aliases; alias; alias = alias->next)
+		print_alias(alias);
+}

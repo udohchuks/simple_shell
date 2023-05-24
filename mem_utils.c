@@ -85,3 +85,22 @@ char *_strcat(char *dest, const char *src)
 	p[i] = '\0';
 	return (p);
 }
+/**
+ * _strchr - implementation of strchr
+ * @str:The string to search.
+ * @character:The character to find.
+ * Return: pointer to the str
+ */
+char *_strchr(const char *str, int character)
+{
+    /*Loop through the str until char is found*/
+	while (*str)
+	{
+		if (*str == character)
+		{
+			return ((char *)str);/*Return the address of the char*/
+		}
+		str++;
+	}
+	return (NULL);
+}

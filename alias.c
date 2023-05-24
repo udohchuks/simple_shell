@@ -1,66 +1,119 @@
 #include "shell.h"
 
 /**
+ * init_aliases - initializes the aliases with some standard values
+ * @aliases: head of the linked list of aliases
+ */
+void init_aliases(alias_t **aliases)
+{
+	set_alias(aliases, "l", "ls -CF");
+	set_alias(aliases, "la", "ls -A");
+	set_alias(aliases, "ll", "ls -alF");
+	set_alias(aliases, "ls", "ls --color=auto");
+}
+
+/**
  * alias_command - alias command
  * @argv: argument
  * @num_arg: number of arguments
  *
  * Return: 0 if successful
  */
-
 int alias_command(char *argv[MAX_ARGS], int num_arg __attribute__((unused)))
 {
-	int i = 0;
-	int num_aliases = 4;
-	alias_t aliases[MAX_NUM_Aliases] = {
-		{"l", "ls -CF"}, {"la", "ls -A"}, {"ll", "ls -alF"},
-		{"ls", "ls --color=auto"}, {NULL, NULL}
-	};
-	if (_strcmp(argv[0], "alias") != 0 && num_arg > 2)
-		return (0);
-	if (_strcmp(argv[0], "alias") == 0 && num_arg == 1)
+	static alias_t *aliases;
+	static int initialized;
+	int i;
+	char *name, *value;
+	alias_t *alias;
+
+	if (!initialized)
 	{
-		while (aliases[i].name != NULL)
-		{
-			alias_name(aliases[i]);
-			i++;
-		}
+		init_aliases(&aliases);
+		initialized = 1;
+	}
+
+	if (_strcmp(argv[0], "alias") != 0)
+		return (0);
+
+	if (num_arg == 1)
+	{
+		for (alias = aliases; alias; alias = alias->next)
+			print_alias(alias);
 		return (1);
 	}
-	if (argv[1] != NULL)
+	for (i = 1; i < num_arg; i++)
 	{
-		if (_strcmp(argv[0], "alias") == 0)
+		name = argv[i];
+		value = _strchr(argv[i], '=');
+		if (value)
 		{
-			int i;
-
-			for (i = 0; i < num_aliases; i++)
-			{
-				if (_strcmp(argv[1], aliases[i].name) == 0)
-				{
-					alias_name(aliases[i]);
-					return (1);
-				}
-			}
+			*value = '\0';/*replaces '=' by '\0'*/
+			value++;
+			if (*value == '\0')
+				continue;
+			set_alias(&aliases, name, value);
 		}
 		else
 		{
-			return (0);
+			print_all_aliases(aliases);
 		}
 	}
-		return (0);
+	return (1);
+}
+
+
+/**
+ * set_alias - sets an alias
+ * @aliases: head of the linked list of aliases
+ * @name: name of the alias
+ * @value: value of the alias
+ */
+void set_alias(alias_t **aliases, char *name, char *value)
+{
+	alias_t *alias;
+
+	for (alias = *aliases; alias; alias = alias->next)
+		if (_strcmp(alias->name, name) == 0)
+			break;
+
+	if (alias)
+	{
+		free(alias->value);
+		alias->value = _strdup(value);
+	}
+	else
+	{
+		alias = malloc(sizeof(*alias));
+		if (!alias)
+			return;
+		alias->name = _strdup(name);
+		alias->value = _strdup(value);
+		alias->next = *aliases;
+		*aliases = alias;
+	}
 }
 
 /**
- * alias_name - prints alias details.
- * @alias: alias input
+ * print_alias - prints an alias
+ * @alias: the alias to print
  */
-
-void alias_name(alias_t alias)
+void print_alias(alias_t *alias)
 {
-	write(1, "alias ", 7);
-	write(1, alias.name, _strlen(alias.name));
-	write(1, "='", 2);
-	write(1, alias.alias_cmd, _strlen(alias.alias_cmd));
-	write(1, "'", 1);
-	write(1, "\n", 1);
+	if (alias->value[0] != '\'')
+	{
+		write(1, "alias ", 6);
+		write(1, alias->name, _strlen(alias->name));
+		write(1, "='", 2);
+		write(1, alias->value, _strlen(alias->value));
+		write(1, "'\n", 2);
+	}
+	else
+	{
+		write(1, "alias ", 6);
+		write(1, alias->name, _strlen(alias->name));
+		write(1, "=", 1);
+		write(1, alias->value, _strlen(alias->value));
+		write(1, "\n", 1);
+	}
 }

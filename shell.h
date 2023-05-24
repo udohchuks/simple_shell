@@ -43,18 +43,6 @@ void _1exit(char *status __attribute__((unused)));
 int _atoi(const char *str);
 void cd(char *path);
 int process_command(char **argv);
-/**
-* struct alias_s - alias structure
-* @name: name of alias
-* @alias_cmd: command of alias
-*/
-typedef struct alias_s
-{
-	char *name;
-	char *alias_cmd;
-} alias_t;
-
-int alias_command(char *argv[MAX_ARGS], int num_arg);
 
 /**
 * struct Node - singly linked list
@@ -114,7 +102,25 @@ void add_env_var(struct Node **head, const char *name, const char *value);
 void update_environ(struct Node *head);
 void handle_segfault(int signo __attribute__((unused)));
 void handle_sigint(int signo __attribute__((unused)));
-void alias_name(alias_t alias);
 void remwspaces(char *s);
 int wspace(char s);
+
+/**
+ * struct alias_s - a structure representing an alias
+ * @name: the name of the alias
+ * @value: the value of the alias
+ * @next: a pointer to the next alias in the linked list
+ */
+typedef struct alias_s
+{
+	char *name;
+	char *value;
+	struct alias_s *next;
+} alias_t;
+void init_aliases(alias_t **aliases);
+int alias_command(char *argv[MAX_ARGS], int num_arg __attribute__((unused)));
+char *_strchr(const char *str, int character);
+void print_alias(alias_t *alias);
+void set_alias(alias_t **aliases, char *name, char *value);
+void print_all_aliases(alias_t *aliases);
 #endif /* SHELL_H */

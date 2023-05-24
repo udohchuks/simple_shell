@@ -9,7 +9,7 @@
  */
 int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 {
-	char *__attribute__ ((unused)) cmd1, *cmd_copy;
+	char *__attribute__ ((unused)) cmd1, *cmd_copy = NULL;
 	char *argv[MAX_ARGS], *ar[MAX_ARGS];
 
 	char *__attribute__ ((unused)) full_path;
@@ -45,6 +45,7 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 		else
 			_exec(argv, av[0]);
 		free(cmd);
+		free(cmd_copy);
 		cmd = NULL;
 	} while (1);
 	return (0);

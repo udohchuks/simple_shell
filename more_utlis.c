@@ -103,9 +103,7 @@ void _1exit(char *status __attribute__((unused)))
 	if (status != NULL)
 	{
 		i  = _atoi(status);
-		free(cmd);
 		exit(i);
 	}
-	free(cmd);
 	exit(0);
 }

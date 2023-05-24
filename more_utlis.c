@@ -100,15 +100,10 @@ int _atoi(const char *str)
 */
 int _1exit(char *status __attribute__((unused)))
 {
-	int i = 0, j = 0;
+	int i = 0;
 
 	if (status != NULL)
 	{
-	/*	while(status[j] && !(status[j] > 47 && status[j] < 58))
-		{
-			j++;
-			return (2);
-		}*/
 		i  = _atoi(status);
 	}
 	return (i);

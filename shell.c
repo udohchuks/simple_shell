@@ -33,7 +33,8 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 		if (_strcmp(argv[0], "exit") == 0)
 		{
 			free(cmd);
-			_1exit(argv[1]);
+			exit(0);
+			/**_1exit(argv[1]);**/
 		}
 
 		if (process_command(argv) == 0)

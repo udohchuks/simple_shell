@@ -33,8 +33,8 @@ int cd(char *path)
 		return (1);
 	}
 	old = 1;
-	_setenv("OLDPWD", oldpwd);
-	_setenv("PWD", newpwd);
+	setenv("OLDPWD", oldpwd, 1);
+	setenv("PWD", newpwd, 1);
 	return (0);
 }
 

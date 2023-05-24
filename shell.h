@@ -41,7 +41,7 @@ int num_args(char *argv[]);
 void _exec(char **_argum, char *av);
 void _1exit(char *status __attribute__((unused)));
 int _atoi(const char *str);
-int cd(char *path);
+void cd(char *path);
 int process_command(char **argv);
 /**
 * struct alias_s - alias structure

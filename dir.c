@@ -6,35 +6,46 @@
 *
 * Return: 0 on success, 1 on failure
 */
-int cd(char *path)
+void cd(char *path)
 {
-	static int old;
 	char *home = _getenv("HOME");
-	char *oldpwd = _getenv("PWD");
-	char *newpwd;
+	char *oldpwd = _getenv("OLDPWD");
+	char *pwd = _getenv("PWD");
+	char cwd[1024];
 
-	if (path == NULL || _strcmp(path, "~") == 0)
-		newpwd = home;
+	if (path == NULL)
+	{
+		if (chdir(home) == -1)
+		{
+			perror("cd");
+			return;
+		}
+		setenv("OLDPWD", pwd, 1);
+		setenv("PWD", home, 1);
+}
 	else if (_strcmp(path, "-") == 0)
 	{
-		if (old == 0)
+		if (oldpwd != NULL)
 		{
-			write(2, "cd: OLDPWD not set\n", 20);
-			return (0);
+			if (chdir(oldpwd) == -1)
+			{
+				perror("cd");
+				return;
+			}
+			setenv("OLDPWD", pwd, 1);
+			setenv("PWD", oldpwd, 1);
 		}
-		else
-			newpwd = _getenv("OLDPWD");
 	}
 	else
-		newpwd = path;
-	if (chdir(newpwd) != 0)
 	{
-		perror("cd");
-		return (1);
+		if (chdir(path) == -1)
+		{
+			perror("cd");
+			return;
+		}
+		getcwd(cwd, sizeof(cwd));
+		setenv("OLDPWD", pwd, 1);
+		setenv("PWD", cwd, 1);
 	}
-	old = 1;
-	setenv("OLDPWD", oldpwd, 1);
-	setenv("PWD", newpwd, 1);
-	return (0);
 }
 

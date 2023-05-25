@@ -19,11 +19,9 @@ int access_check(char **arg, char *cmd, char *err, int c, char **e)
 	p = (cmd == NULL) ? arg[0] : cmd;
 	if (access(p, X_OK) == 0)
 	{
-		printf("outside");
 		idcheck = fork();
 		if (idcheck == 0)
 		{
-			printf("anything");
 			_execve(p, arg, e);
 		}
 		return (0);

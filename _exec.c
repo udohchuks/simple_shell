@@ -29,16 +29,21 @@ void _exec(char **_argum, char *av)
 	}
 	else
 	{
-		cmd1 = which(_argum[0]);
-		if (cmd1 == NULL)
+		if (_argum[0][0] != '.')
 		{
-			perror(err);
-			return;
+			cmd1 = which(_argum[0]);
+			if (cmd1 == NULL)
+			{
+				perror(err);
+				return;
+			}
+			free(cmd1);
 		}
+		else
+			cmd1 = _argum[0];
 		idcheck = fork();
 		if (idcheck == 0)
 			execve(cmd1, _argum, envp);
-		free(cmd1);
 	}
 	wait(NULL);
 }

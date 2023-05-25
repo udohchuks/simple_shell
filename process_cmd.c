@@ -39,9 +39,11 @@ int process_command(char **argv)
 			return (0);
 		}
 	}
-/*	if (alias_command(argv, num_arg))
-	{
-		return (0);
-	}
-	return (1);*/
+/*
+ *	if (alias_command(argv, num_arg))
+ *	{
+ *		return (0);
+ *	}
+ */
+	return (1);
 }

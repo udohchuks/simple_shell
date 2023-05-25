@@ -25,7 +25,7 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 		if (cmd[0] == '\0' || (_strcmp(cmd, "\n") == 0))
 			continue;
 		remwspaces(cmd);
-		cmd_copy = strdup(cmd);
+		cmd_copy = _strdup(cmd);
 		tokenize(cmd_copy, ar);
 		tokenize(cmd, argv);
 		if (cmd[0] == '\0')

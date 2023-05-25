@@ -12,7 +12,6 @@ void _exec(char **_argum, char *av, int count)
 	char *envp[] = {"TERM=xterm-256color", NULL};
 	char err[50];
 	int status;
-	int i;
 
 	_strcpy(err, av);
 	ex_code = 0;

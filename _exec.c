@@ -13,8 +13,6 @@ void _exec(char **_argum, char *av)
 	char err[50];
 
 	_strcpy(err, av);
-	_strcat(err, ": 1: ");
-	_strcat(err, _argum[0]);
 	if (_argum[0][0] == '/')
 	{
 		if (access(_argum[0], X_OK) == 0)

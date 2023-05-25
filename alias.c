@@ -92,6 +92,7 @@ void set_alias(alias_t **aliases, char *name, char *value)
 		alias->next = *aliases;
 		*aliases = alias;
 	}
+	free (alias);
 }
 
 /**

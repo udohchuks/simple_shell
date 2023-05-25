@@ -16,18 +16,6 @@ void _exec(char **_argum, char *av, int count)
 
 	_strcpy(err, av);
 	ex_code = 0;
-	 if (_strcmp(_argum[0], "ls") == 0 || _strcmp(_argum[0], "/bin/ls") == 0)
-    {
-        for (i = 0; _argum[i]; i++)
-            ;
-        _argum[i + 1] = NULL;
-        while (i > 1)
-        {
-            _argum[i] = _argum[i - 1];
-            i--;
-        }
-        _argum[1] = "-X";
-    }
 	if (_argum[0][0] == '/')
 	{
 		if (access_check(_argum, NULL, err, count, envp))

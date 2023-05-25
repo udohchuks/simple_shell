@@ -10,9 +10,13 @@ void _exec(char **_argum, char *av)
 	char *cmd1;
 	pid_t idcheck;
 	char *envp[] = {"TERM=xterm-256color", NULL};
-	char err[20];
+	char err[1024];
+	int len;
 
 	_strcpy(err, av);
+	_strcat(err, ": 1: ");
+	_strcat(err, _argum[0]);
+	_strcat(err, ": not found\n");
 	if (_argum[0][0] == '/')
 	{
 		if (access(_argum[0], X_OK) == 0)
@@ -23,7 +27,8 @@ void _exec(char **_argum, char *av)
 		}
 		else
 		{
-			perror(err);
+			len = _strlen(err);
+			write(STDERR_FILENO, err, len);
 			return;
 		}
 	}
@@ -34,7 +39,8 @@ void _exec(char **_argum, char *av)
 			cmd1 = which(_argum[0]);
 			if (cmd1 == NULL)
 			{
-				perror(err);
+				len = _strlen(err);
+				write(STDERR_FILENO, err, len);
 				return;
 			}
 			free(cmd1);

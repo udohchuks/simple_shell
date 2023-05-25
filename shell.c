@@ -17,7 +17,7 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 	char *__attribute__ ((unused)) cmd1, *cmd_copy = NULL;
 	char *argv[MAX_ARGS], *ar[MAX_ARGS];
 
-	int __attribute__ ((unused)) num_arg, r;
+	int __attribute__ ((unused)) num_arg, r, count = 1;
 	signal(SIGSEGV, handle_segfault);
 	do {
 		if (isatty(STDIN_FILENO))
@@ -48,9 +48,10 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 		{
 		}
 		else
-			_exec(argv, av[0]);
+			_exec(argv, av[0], count);
 		free(cmd);
 		free(cmd_copy);
+		count++;
 	} while (1);
 	return (0);
 }

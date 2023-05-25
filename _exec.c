@@ -4,28 +4,19 @@
 * _exec - execute command
 * @_argum: array of arguments
 * @av: name of program
+* @count: count of command
 */
-void _exec(char **_argum, char *av)
+void _exec(char **_argum, char *av, int count)
 {
 	char *cmd1, err[20];
-	pid_t idcheck;
 	char *envp[] = {"TERM=xterm-256color", NULL};
 
 	_strcpy(err, av);
 	ex_code = 0;
 	if (_argum[0][0] == '/')
 	{
-		if (access(_argum[0], X_OK) == 0)
-		{
-			idcheck = fork();
-			if (idcheck == 0)
-				_execve(_argum[0], _argum, envp);
-		}
-		else
-		{
-			_perror(err);
+		if (access_check(_argum, NULL, err, count, envp))
 			return;
-		}
 	}
 	else
 	{
@@ -34,15 +25,14 @@ void _exec(char **_argum, char *av)
 			cmd1 = which(_argum[0]);
 			if (cmd1 == NULL)
 			{
-				_perror(err);
+				_perror(err, count, _argum[0]);
 				return;
 			}
 		}
 		else
 			cmd1 = _argum[0];
-		idcheck = fork();
-		if (idcheck == 0)
-			_execve(cmd1, _argum, envp);
+		if (access_check(_argum, cmd1, err, count, envp))
+			return;
 	free(cmd1);
 	}
 	wait(NULL);
@@ -65,11 +55,73 @@ void _execve(char *c, char **p, char **r)
 /**
  * _perror - printing error and checking exit code
  * @err: error string
+ * @count: number of command
+ * @c: name of file
  */
 
-void _perror(char *err)
+void _perror(char *err, int count, char *c)
 {
 	ex_code = 127;
-	perror(err);
+	_print(err);
+	_print(": ");
+	_pnumber(count);
+	_print(": ");
+	_print(c);
+	_print(": not found\n");
 }
 
+/**
+ * _print - prints a character
+ * @s: string input
+ */
+
+void _print(char *s)
+{
+	int i = 0;
+
+	while (s[i] != '\0')
+	{
+		_putchar(s[i]);
+		i++;
+	}
+}
+
+/**
+ * _pnumber - print number
+ * @n: integer
+ */
+
+void _pnumber(int n)
+{
+	int first = n, count = 0, x = 1, i, tmp;
+
+	tmp = n;
+
+	if (n < 0)
+	{
+		_putchar('-');
+		n = (n * -1) - 1;
+	}
+	while (first != 0)
+	{
+		first = first / 10;
+		count++;
+	}
+	while (x <= count)
+	{
+		first = n;
+		i = x;
+		while (i < count)
+		{
+			first = first / 10;
+			i++;
+		}
+		if (tmp < 0 && x == count)
+			_putchar(((first % 10) + 48) + 1);
+		else
+			_putchar((first % 10) + 48);
+		x++;
+	}
+	if (count == 0)
+		_putchar('0');
+}

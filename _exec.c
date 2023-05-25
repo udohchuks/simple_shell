@@ -11,8 +11,10 @@ void _exec(char **_argum, char *av, int count)
 	char *cmd1;
 	char *envp[] = {"TERM=xterm-256color", NULL};
 	char err[50];
+	int status;
 
 	_strcpy(err, av);
+	ex_code = 0;
 	if (_argum[0][0] == '/')
 	{
 		if (access_check(_argum, NULL, err, count, envp))
@@ -35,7 +37,11 @@ void _exec(char **_argum, char *av, int count)
 			return;
 	free(cmd1);
 	}
-	wait(NULL);
+	wait(&status);
+	if (WIFEXITED(status))
+	{
+		ex_code = (WEXITSTATUS(status));
+	}
 }
 
 /**
@@ -47,8 +53,8 @@ void _exec(char **_argum, char *av, int count)
 
 void _execve(char *c, char **p, char **r)
 {
-	ex_code = 0;
-	execve(c, p, r);
+	if ((execve(c, p, r) == -1))
+		ex_code = 127;
 	ex_code = 1;
 }
 

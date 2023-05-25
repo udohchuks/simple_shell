@@ -82,12 +82,14 @@ int _atoi(const char *str)
 	int sign = 1;
 
 	for (i = 0; str[i] != '\0'; i++)
+	{
 		if (str[i] == '-')
 			sign = -1;
 		else if (str[i] >= '0' && str[i] <= '9')
 			n = n * 10 + (str[i] - '0');
 		else
 			break;
+	}
 
 	return (n * sign);
 }

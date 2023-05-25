@@ -41,7 +41,8 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 			exit(r);
 		}
 		if (process_command(argv) == 0)
-			free(cmd);
+		{
+		}
 		else
 			_exec(argv, av[0]);
 		free(cmd);

@@ -17,13 +17,14 @@ void _exec(char **_argum, char *av)
 	_strcat(err, ": 1: ");
 	_strcat(err, _argum[0]);
 	_strcat(err, ": not found\n");
+	ex_code = 0;
 	if (_argum[0][0] == '/')
 	{
 		if (access(_argum[0], X_OK) == 0)
 		{
 			idcheck = fork();
 			if (idcheck == 0)
-				execve(_argum[0], _argum, envp);
+				_execve(_argum[0], _argum, envp);
 		}
 		else
 		{
@@ -43,13 +44,39 @@ void _exec(char **_argum, char *av)
 				write(STDERR_FILENO, err, len);
 				return;
 			}
-			free(cmd1);
 		}
 		else
 			cmd1 = _argum[0];
 		idcheck = fork();
 		if (idcheck == 0)
-			execve(cmd1, _argum, envp);
+			_execve(cmd1, _argum, envp);
+	free(cmd1);
 	}
 	wait(NULL);
 }
+
+/**
+ * _execve - runs error code and exec
+ * @c: command prompt
+ * @p: arguments to command
+ * @r: environment variable
+ */
+
+void _execve(char *c, char **p, char **r)
+{
+	ex_code = 0;
+	execve(c, p, r);
+	ex_code = 1;
+}
+
+/**
+ * _perror - printing error and checking exit code
+ * @err: error string
+ */
+
+void _perror(char *err)
+{
+	ex_code = 127;
+	perror(err);
+}
+

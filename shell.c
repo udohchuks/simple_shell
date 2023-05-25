@@ -1,6 +1,10 @@
 #include "shell.h"
 #include <string.h>
 
+void handle_segfault(int signo __attribute__((unused)));
+
+int ex_code = 0;
+
 /**
  * main - Entry point of the program.
  * @ac: The number of command-line arguments.
@@ -20,7 +24,7 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 			write(1, "$ ", 2);
 		cmd = read_command();
 		if (cmd == NULL)
-			exit(EXIT_SUCCESS);
+			exit(ex_code);
 		if (cmd[0] == '\0' || (_strcmp(cmd, "\n") == 0))
 			continue;
 		remwspaces(cmd);

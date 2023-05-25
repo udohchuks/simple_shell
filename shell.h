@@ -18,6 +18,7 @@
 
 static char *cmd __attribute__((unused));
 extern char **environ UNUSED;
+extern int ex_code;
 
 /* Function Prototypes */
 char *_getline(void);
@@ -100,7 +101,6 @@ int _unsetenv(const char *name);
 int _setenv(const char *name, const char *value);
 void add_env_var(struct Node **head, const char *name, const char *value);
 void update_environ(struct Node *head);
-void handle_segfault(int signo __attribute__((unused)));
 void handle_sigint(int signo __attribute__((unused)));
 void remwspaces(char *s);
 int wspace(char s);
@@ -123,4 +123,6 @@ char *_strchr(const char *str, int character);
 void print_alias(alias_t *alias);
 void set_alias(alias_t **aliases, char *name, char *value);
 void print_all_aliases(alias_t *aliases);
+void _execve(char *c, char **p, char **r);
+void _perror(char *err);
 #endif /* SHELL_H */

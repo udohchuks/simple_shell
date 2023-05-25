@@ -100,7 +100,7 @@ int _atoi(const char *str)
 */
 int _1exit(char *status __attribute__((unused)))
 {
-	int i = 1;
+	int i = 0;
 
 	if (status != NULL)
 	{

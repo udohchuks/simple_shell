@@ -1,4 +1,5 @@
 #include "shell.h"
+#include <string.h>
 
 /**
  * main - Entry point of the program.
@@ -12,10 +13,8 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 	char *__attribute__ ((unused)) cmd1, *cmd_copy = NULL;
 	char *argv[MAX_ARGS], *ar[MAX_ARGS];
 
-	char *__attribute__ ((unused)) full_path;
 	int __attribute__ ((unused)) num_arg, r;
 	signal(SIGSEGV, handle_segfault);
-
 	do {
 		if (isatty(STDIN_FILENO))
 			write(1, "$ ", 2);
@@ -25,11 +24,15 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 		if (cmd[0] == '\0' || (_strcmp(cmd, "\n") == 0))
 			continue;
 		remwspaces(cmd);
-		cmd_copy = _strdup(cmd);
+		cmd_copy = strdup(cmd);
 		tokenize(cmd_copy, ar);
 		tokenize(cmd, argv);
-		if (cmd[0] == '\0')
+		if (cmd[0] == '\0' || (_strcmp(cmd, "\n") == 0))
+		{
+			free(cmd);
+			free(cmd_copy);
 			continue;
+		}
 		if (_strcmp(argv[0], "exit") == 0)
 		{
 			free(cmd);
@@ -38,15 +41,11 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 			exit(r);
 		}
 		if (process_command(argv) == 0)
-		{
 			free(cmd);
-			continue;
-		}
 		else
 			_exec(argv, av[0]);
 		free(cmd);
 		free(cmd_copy);
-		cmd = NULL;
 	} while (1);
 	return (0);
 }

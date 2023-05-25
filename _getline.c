@@ -22,7 +22,7 @@ char *_getline(void)
 		{
 			free(buffer);
 			if (nread == 0)
-				exit(EXIT_SUCCESS);
+				exit(ex_code);
 			if (nread == -1)
 				perror("Error: ");
 		}

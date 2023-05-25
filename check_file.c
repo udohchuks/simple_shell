@@ -37,7 +37,7 @@ int access_check(char **arg, char *cmd, char *err, int c, char **e)
  * Return: 1 on success
  */
 
-int _putchar(char c);
+int _putchar(char c)
 {
 	return (write(2, &c, 1));
 }

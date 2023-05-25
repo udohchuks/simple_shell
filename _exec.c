@@ -8,11 +8,11 @@
 */
 void _exec(char **_argum, char *av, int count)
 {
-	char *cmd1, err[20];
+	char *cmd1;
 	char *envp[] = {"TERM=xterm-256color", NULL};
+	char err[50];
 
 	_strcpy(err, av);
-	ex_code = 0;
 	if (_argum[0][0] == '/')
 	{
 		if (access_check(_argum, NULL, err, count, envp))

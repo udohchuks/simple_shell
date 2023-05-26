@@ -11,7 +11,7 @@
 #include <signal.h>
 
 /* Macros */
-#define BUFFER_SIZE 1024
+#define BUFFER_SIZE 5024
 #define MAX_ARGS 1024
 #define MAX_NUM_Aliases 100
 #define UNUSED  __attribute__((unused))

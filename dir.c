@@ -20,8 +20,8 @@ void cd(char *path)
 			perror("cd");
 			return;
 		}
-		_setenv("OLDPWD", pwd);
-		_setenv("pwd", home);
+		setenv("OLDPWD", pwd, 1);
+		setenv("pwd", home, 1);
 }
 	else if (_strcmp(path, "-") == 0)
 	{
@@ -32,8 +32,8 @@ void cd(char *path)
 				perror("cd");
 				return;
 			}
-			_setenv("OLDPWD", pwd);
-			_setenv("pwd", oldpwd);
+			setenv("OLDPWD", pwd, 1);
+			setenv("pwd", oldpwd, 1);
 		}
 	}
 	else
@@ -44,8 +44,8 @@ void cd(char *path)
 			return;
 		}
 		getcwd(cwd, sizeof(cwd));
-		_setenv("OLDPWD", pwd);
-		_setenv("pwd", cwd);
+		setenv("OLDPWD", pwd, 1);
+		setenv("PWD", cwd, 1);
 	}
 }
 

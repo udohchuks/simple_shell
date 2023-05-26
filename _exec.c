@@ -30,12 +30,16 @@ void _exec(char **_argum, char *av, int count)
 				_perror(err, count, _argum[0]);
 				return;
 			}
+			if (access_check(_argum, cmd1, err, count, envp))
+				return;
+			free(cmd1);
 		}
 		else
+		{
 			cmd1 = _argum[0];
-		if (access_check(_argum, cmd1, err, count, envp))
-			return;
-	free(cmd1);
+			if (access_check(_argum, cmd1, err, count, envp))
+				return;
+		}
 	}
 	wait(&status);
 	if (WIFEXITED(status))

@@ -17,9 +17,10 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 	char *__attribute__ ((unused)) cmd1, *cmd_copy = NULL;
 	char *argv[MAX_ARGS], *ar[MAX_ARGS];
 
-	int __attribute__ ((unused)) num_arg, r, count = 1;
+	int __attribute__ ((unused)) num_arg, r, count = 0;
 	signal(SIGSEGV, handle_segfault);
 	do {
+		count++;
 		if (isatty(STDIN_FILENO))
 			write(1, "$ ", 2);
 		cmd = read_command();
@@ -39,9 +40,11 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 		}
 		if (_strcmp(argv[0], "exit") == 0)
 		{
+			r = _1exit(ar[1], count, av[0], argv);
 			free(cmd);
-			r = _1exit(ar[1]);
 			free(cmd_copy);
+			if (r == 500)
+				continue;
 			exit(r);
 		}
 		if (process_command(argv) == 0)
@@ -51,7 +54,6 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 			_exec(argv, av[0], count);
 		free(cmd);
 		free(cmd_copy);
-		count++;
 	} while (1);
 	return (0);
 }

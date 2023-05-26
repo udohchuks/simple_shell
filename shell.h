@@ -40,7 +40,7 @@ void remove_trailing_and_leading_spaces(char *str);
 void tokenize(char *command, char *argv[MAX_ARGS]);
 int num_args(char *argv[]);
 void _exec(char **_argum, char *av, int count);
-int _1exit(char *status __attribute__((unused)));
+int _1exit(char *status __attribute__((unused)), int c, char *a, char **ag);
 int _atoi(const char *str);
 void cd(char *path);
 int process_command(char **argv);
@@ -129,4 +129,5 @@ void _print(char *s);
 void _pnumber(int n);
 int _putchar(char c);
 int access_check(char **arg, char *cmd, char *err, int c, char **e);
+void _perrore(char *err, int count, char *c, char *arg);
 #endif /* SHELL_H */

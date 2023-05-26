@@ -9,7 +9,7 @@
 void _exec(char **_argum, char *av, int count)
 {
 	char *cmd1;
-	char *envp[] = {"TERM=xterm-256color", NULL};
+	/*char *envp[] = {"TERM=xterm-256color", NULL};*/
 	char err[50];
 	int status;
 
@@ -17,7 +17,7 @@ void _exec(char **_argum, char *av, int count)
 	ex_code = 0;
 	if (_argum[0][0] == '/')
 	{
-		if (access_check(_argum, NULL, err, count, envp))
+		if (access_check(_argum, NULL, err, count, environ))
 			return;
 	}
 	else
@@ -30,14 +30,14 @@ void _exec(char **_argum, char *av, int count)
 				_perror(err, count, _argum[0]);
 				return;
 			}
-			if (access_check(_argum, cmd1, err, count, envp))
+			if (access_check(_argum, cmd1, err, count, environ))
 				return;
 			free(cmd1);
 		}
 		else
 		{
 			cmd1 = _argum[0];
-			if (access_check(_argum, cmd1, err, count, envp))
+			if (access_check(_argum, cmd1, err, count, environ))
 				return;
 		}
 	}

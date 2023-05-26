@@ -44,6 +44,7 @@ char *_getline(void)
 		i++;
 	}
 	buffer[i - 1] = '\0';
+	remwspaces(buffer);
 	hash_handler(buffer);
 	return (buffer);
 }
